@@ -1,0 +1,9 @@
+deploy:
+  provider: openshift
+  user: denis.shybeko@gmail.com
+  password:
+    secure: cQx7UiSafM9+J131EsAo12Z32yIwi7CsidL6Wy+he4+19YTnoyaqWOBN5y7BVtNOw7x/tq+wtaSZcQLa8WejPWjBDUwAb5FHs8MBFu2utQQVzYvTn9CcHeHRERuA7p1gMfJV1WhfS+LALMG5qsPPSgBNnwiN9/R4jaLlNhV/jxc=
+  app: bfront
+  domain: bboards
+  on:
+    repo: dshybeka/bboards-front
