@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>Bboards</title>
+
+        <link href="/resources/css/bboards-main.css" rel="stylesheet">
+    </head>
+    <body>
+
+        <h1>Welcome to bboards application</h1>
+
+        <ul data-bind="foreach: boards">
+            <li data-bind="text: lat"></li>
+        </ul>
+
+        <div id="map-canvas"></div>
+        <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.7.0/underscore.js"></script>-->
+        <script src="https://maps.googleapis.com/maps/api/js?v=3.exp"></script>
+        <!--<script src="/resources/js/boardmap-app.js" type="application/javascript"></script>-->
+        <script data-main="/resources/scripts/main" src="/resources/scripts/require.js"></script>
+    </body>
+</html>
