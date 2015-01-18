@@ -1,3 +1,4 @@
+language: groovy
 deploy:
   provider: openshift
   user: denis.shybeko@gmail.com
