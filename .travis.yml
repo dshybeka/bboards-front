@@ -7,7 +7,7 @@ before_install:
   - npm install -g grunt-cli
   - grunt -version
 install: npm install
-before_script: grunt -version
+before_script: grunt build
 deploy:
   provider: openshift
   user: denis.shybeko@gmail.com
