@@ -1,9 +1,11 @@
 language: node_js
 node_js:
   - "0.10.0"
-before_install: npm install -g grunt-cli
-install: npm install
-before_script: grunt build
+before_script:
+  - npm install -g bower
+  - bower install
+install:
+  - npm install -g npm@2
 deploy:
   provider: openshift
   user: denis.shybeko@gmail.com
