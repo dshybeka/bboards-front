@@ -8,6 +8,10 @@ before_install:
   - grunt -version
 install: npm install
 before_script: grunt build
+script:
+  - git rm -r *
+  - git add dist/*
+  - git commit -m 'dist'
 deploy:
   provider: openshift
   user: denis.shybeko@gmail.com
