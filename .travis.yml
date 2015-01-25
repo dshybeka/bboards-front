@@ -11,9 +11,12 @@ before_script: grunt build
 script:
   - git config --global user.email "denis.shybeko@gmail.com"
   - git config --global user.name "Denis Shybeko"
-  - git checkout --orphan dist-only-branch
+  - git checkout master
+  - cp -R dist /tmp/bboards-dist
+  - rm -r *
   - ls
-  - git add dist
+  - cp -R /tmp/bboards-dist ..
+  - git add .
   - git commit -m 'added composed files'
 deploy:
   provider: openshift
