@@ -4,6 +4,7 @@ before_install:
   - npm install -g bower
   - bower install
   - npm install -g grunt-cli
+  - grunt -version
 install: npm install
 before_script: grunt -version
 deploy:
