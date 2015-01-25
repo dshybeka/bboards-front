@@ -19,7 +19,7 @@ script:
   - ls
   - cp -R /tmp/bboards-dist/* .
   - ls
-  - git add .
+  - git add -A
   - git commit -m 'added composed files'
 deploy:
   provider: openshift
