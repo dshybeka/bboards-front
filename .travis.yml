@@ -15,7 +15,8 @@ script:
   - cp -R dist /tmp/bboards-dist
   - rm -r *
   - ls
-  - cp -R /tmp/bboards-dist ..
+  - cp -R /tmp/bboards-dist .
+  - ls
   - git add .
   - git commit -m 'added composed files'
 deploy:
