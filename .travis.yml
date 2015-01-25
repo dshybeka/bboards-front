@@ -10,7 +10,7 @@ install: npm install
 before_script: grunt build
 script:
   - git checkout master
-  - git add dist/*
+  - git add dist
   - git commit -m 'added composed files'
 deploy:
   provider: openshift
