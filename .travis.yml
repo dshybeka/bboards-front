@@ -12,7 +12,9 @@ script:
   - git config --global user.email "denis.shybeko@gmail.com"
   - git config --global user.name "Denis Shybeko"
   - git checkout master
-  - cp -R dist/* /tmp/bboards-dist
+  - cp -R dist /tmp/bboards-dist
+  - ls /tmp
+  - ls /tmp/bboards-dist
   - rm -r *
   - ls
   - cp -R /tmp/bboards-dist/* .
