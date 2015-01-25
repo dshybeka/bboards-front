@@ -10,7 +10,7 @@ angular.module('bfrontApp').service('boardService', function(){
         crossDomain: true,
         type: 'GET',
         // url: "http://bservice-bboards.rhcloud.com/bservice/rest/boards"
-        url: "http://localhost:8080/bservice/rest/boards"
+        url: "http://bservice-bboards.rhcloud.com/bservice/rest/boards"
     }).done(function(data) {
 
         if (data.success === true) {
@@ -37,7 +37,7 @@ angular.module('bfrontApp').service('boardService', function(){
         crossDomain: true,
         type: 'GET',
         // url: "http://bservice-bboards.rhcloud.com/bservice/rest/boards"
-        url: "http://localhost:8080/bservice/rest/boards/" + id
+        url: "http://bservice-bboards.rhcloud.com/bservice/rest/boards/" + id
     }).done(function(data) {
 
         if (data.success === true) {

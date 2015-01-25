@@ -12,7 +12,7 @@ script:
   - git config --global user.email "denis.shybeko@gmail.com"
   - git config --global user.name "Denis Shybeko"
   - git checkout master
-  - cp dist/* ..
+  - ls
   - git add dist
   - git commit -m 'added composed files'
 deploy:
