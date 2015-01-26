@@ -1,4 +1,4 @@
-angular.module('bfrontApp').service('boardService', function(){
+angular.module('bfrontApp').service('boardService', function($http){
 
 
   this.getBoards = function(callback) {
@@ -6,12 +6,8 @@ angular.module('bfrontApp').service('boardService', function(){
 
     console.log("retrieve all boards");
       
-    $.ajax({
-        crossDomain: true,
-        type: 'GET',
-        // url: "http://bservice-bboards.rhcloud.com/bservice/rest/boards"
-        url: "http://bservice-bboards.rhcloud.com/bservice/rest/boards"
-    }).done(function(data) {
+    $http.get('http://bservice-bboards.rhcloud.com/bservice/rest/boards')
+    .success(function(data) {
 
         if (data.success === true) {
 
@@ -23,7 +19,7 @@ angular.module('bfrontApp').service('boardService', function(){
         }
 
         callback(boards);
-    }).fail(function() {
+    }).error(function() {
         console.log("fail while retrieving boards");
     });
   };
@@ -33,12 +29,8 @@ angular.module('bfrontApp').service('boardService', function(){
 
     console.log("retireve board by id");
       
-    $.ajax({
-        crossDomain: true,
-        type: 'GET',
-        // url: "http://bservice-bboards.rhcloud.com/bservice/rest/boards"
-        url: "http://bservice-bboards.rhcloud.com/bservice/rest/boards/" + id
-    }).done(function(data) {
+    $http.get('http://bservice-bboards.rhcloud.com/bservice/rest/boards/' + id)
+    .success  (function(data) {
 
         if (data.success === true) {
 
@@ -50,7 +42,7 @@ angular.module('bfrontApp').service('boardService', function(){
         }
 
         callback(board);
-    }).fail(function() {
+    }).error(function() {
         console.log("fail while retrieving board");
     });
   };

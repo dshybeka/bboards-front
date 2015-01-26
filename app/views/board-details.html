@@ -1,8 +1,105 @@
-<div class="well bs-component" ng-model="data.board" >
-  <h3>Board details:</h3>
-  <div class="form-group">
-    <label class="col-lg-2 control-label">Цена</label>
-    <div class="col-lg-10" >{{price}}</div>
-  </div>
-  {{data.tt}}
+<div class="well bs-component" style="height: 550px;" >
+    <h3>Информация о борде:</h3>
+
+    <div class=" col-lg-12">
+      <label class="col-lg-6 control-label">Формат/Размер</label>
+      <div class="col-lg-6" >{{data.board.boardFormat}}</div>
+    </div>
+
+
+    <div class=" col-lg-12">
+      <label class="col-lg-6 control-label">Наличие подсветки</label>
+      <div class="col-lg-6" >{{data.board.isBacklight}}</div>
+    </div>
+
+
+    <div class=" col-lg-12">
+      <label class="col-lg-6 control-label">Тип поверхности</label>
+      <div class="col-lg-6" >{{data.board.surface.name}}</div>
+    </div>
+
+
+    <div class=" col-lg-12">
+      <label class="col-lg-6 control-label">Поток в будние дни</label>
+      <div class="col-lg-6" >{{data.board.weekdayFlow}}</div>
+    </div>
+
+
+    <div class=" col-lg-12">
+      <label class="col-lg-6 control-label">Поток в выходные дни</label>
+      <div class="col-lg-6" >{{data.board.dayOffFlow}}</div>
+    </div>
+
+
+    <div class=" col-lg-12">
+      <label class="col-lg-6 control-label">Стоимость</label>
+      <div class="col-lg-6" >{{data.board.price}}</div>
+    </div>
+
+
+    <div class=" col-lg-12">
+      <label class="col-lg-6 control-label">Минимальный срок аренды</label>
+      <div class="col-lg-6" >{{data.board.minRentDuration}}</div>
+    </div>
+
+
+    <div class=" col-lg-12">
+      <label class="col-lg-6 control-label">Стоимость монтажа/демонтажа</label>
+      <div class="col-lg-6" >{{data.board.installationPrice}}</div>
+    </div>
+
+
+    <div class=" col-lg-12">
+      <label class="col-lg-6 control-label">График занятости</label>
+      <div class="col-lg-6" >TODO</div>
+    </div>
+
+
+    <div class=" col-lg-12">
+      <label class="col-lg-6 control-label">Примечание</label>
+      <div class="col-lg-6" >{{data.board.notes}}</div>
+    </div>
+
+
+    <div class=" col-lg-12">
+      <label class="col-lg-6 control-label">Дополнительное описание</label>
+      <div class="col-lg-6" >{{data.board.adivitionalDescription}}</div>
+    </div>
+
+
+    <div class=" col-lg-12">
+      <label class="col-lg-6 control-label">Перекрестки</label>
+      <div class="col-lg-6" >{{data.board.crossroads}}</div>
+    </div>
+
+
+    <div class=" col-lg-12">
+      <label class="col-lg-6 control-label">Остановки</label>
+      <div class="col-lg-6" >{{data.board.stops}}</div>
+    </div>
+
+
+    <div class=" col-lg-12">
+      <label class="col-lg-6 control-label">Торговые центры и социально-культурные объекты вблизи</label>
+      <div class="col-lg-6" >{{data.board.entertainmentCenters}}</div>
+    </div>
+
+
+    <div class=" col-lg-12">
+      <label class="col-lg-6 control-label">Светофоры в зоне видимости</label>
+      <div class="col-lg-6" >{{data.board.pedestrianCrossings}}</div>
+    </div>
+
+
+    <div class=" col-lg-12">
+      <label class="col-lg-6 control-label">Пешеходные переходы в зоне видимости</label>
+      <div class="col-lg-6" >{{data.board.pedestrianCrossings}}</div>
+    </div>
+
+
+    <div class=" col-lg-12">
+      <label class="col-lg-6 control-label">Наличие узкой специализации площадки</label>
+      <div class="col-lg-6" >{{data.board.narrowArea}}</div>
+    </div>
+
 </div>
