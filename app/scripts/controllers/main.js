@@ -8,9 +8,11 @@
  * Controller of the bfrontApp
  */
 angular.module('bfrontApp')
-  .controller('MainCtrl', function ($scope, boardService) {
+  .controller('MainCtrl', function ($scope, appConf, boardService) {
     
     var self = this;
+    self.appConf = appConf;
+    console.log("self.appConf " + self.appConf.admBaseUrl);
 
     var container = $("#map-canvas");
     boardService.getBoards(function(boardsFromService) {
