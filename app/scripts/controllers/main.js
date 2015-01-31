@@ -9,18 +9,20 @@
  */
 angular.module('bfrontApp')
   .controller('MainCtrl', function ($scope, appConf, boardService) {
-    
+
     var self = this;
     self.appConf = appConf;
     console.log("self.appConf " + self.appConf.admBaseUrl);
 
+    var adminLink = self.appConf.admBaseUrl;
     var container = $("#map-canvas");
+
     boardService.getBoards(function(boardsFromService) {
+
       $scope.boards = boardsFromService;
 
-
       angular.forEach($scope.boards, function(board) {
-        
+
         var mapForNewMarker = board.mapPosition.zoom <= self.map.getZoom() ? self.map : null;
           var newMarker = new google.maps.Marker({
             position: new google.maps.LatLng(board.mapPosition.lat, board.mapPosition.lng),
@@ -30,7 +32,9 @@ angular.module('bfrontApp')
           google.maps.event.addListener(newMarker, 'click', function() {
 
               var infowindow = new google.maps.InfoWindow({
-                  content: "<div><div>Additional description: " + board.additionalDescription + "</div><div>Цена: " + board.price + "</div><div><a href='#/boards/" + board.id + "'>Подробнее</a></div></div>"
+                  content: "<div>" + getBoardImage(board.dayPhoto) + getBoardImage(board.nightPhoto) +
+                  "<div>Описание: " + board.additionalDescription + "</div><div>Цена: " + board.price +
+                  "</div><div><a href='#/boards/" + board.id + "'>Подробнее</a></div></div>"
               });
               infowindow.open(self.map, newMarker)
           });
@@ -49,6 +53,10 @@ angular.module('bfrontApp')
       center: new google.maps.LatLng(53.9, 27.5666667),
       zoom: 11,
       mapTypeId: google.maps.MapTypeId.ROADMAP
+    };
+
+    var getBoardImage = function(image) {
+        return image != null ? "<img src='" + adminLink + image.url + "' height='50' width='50' />" : "";
     };
 
     self.map = new google.maps.Map(container[0], options);

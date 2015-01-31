@@ -13,3 +13,9 @@ body {
   height: 200px;
   width: 200px;
 }
+
+.cleafix,
+.cleafix:before,
+.cleafix:after {
+  clear: both;
+}
