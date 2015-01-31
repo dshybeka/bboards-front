@@ -9,5 +9,11 @@
  */
 angular.module('bfrontApp')
   .constant('appConf', {
-    admBaseUrl: "http://badmin-bboards.rhcloud.com/badmin"
+    admBaseUrl: "http://badmin-bboards.rhcloud.com/badmin",
+    serviceBaseUrl: "http://bservice-bboards.rhcloud.com/bservice",
+
+    restUrls: {
+      boards: "/rest/boards",
+    }
+
   });
