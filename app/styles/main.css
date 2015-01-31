@@ -7,4 +7,10 @@ body {
 #map-canvas {
   width: 100%;
   height: 600px;
-} 
+}
+
+.cleafix,
+.cleafix:before,
+.cleafix:after {
+  clear: both;
+}

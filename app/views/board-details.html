@@ -1,4 +1,4 @@
-<div class="well bs-component" style="height: 550px;" >
+<div class="well bs-component" >
     <h3>Информация о борде:</h3>
 
     <div class=" col-lg-12">
@@ -101,5 +101,17 @@
       <label class="col-lg-6 control-label">Наличие узкой специализации площадки</label>
       <div class="col-lg-6" >{{data.board.narrowArea}}</div>
     </div>
+
+  <div class=" col-lg-12">
+    <label class="col-lg-6 control-label">Фото днем</label>
+    <div class="col-lg-6" ><img src="http://badmin-bboards.rhcloud.com/badmin{{data.board.dayPhoto.url}}" height="200" width="200"/></div>
+  </div>
+
+  <div class=" col-lg-12">
+    <label class="col-lg-6 control-label">Фото ночью</label>
+    <div class="col-lg-6" ><img src="http://badmin-bboards.rhcloud.com/badmin{{data.board.nightPhoto.url}}" height="200" width="200"/></div>
+  </div>
+
+  <div class="cleafix"></div>
 
 </div>
