@@ -16,7 +16,8 @@ angular
     'ngResource',
     'ngRoute',
     'ngSanitize',
-    'ngTouch'
+    'ngTouch',
+    'http-auth-interceptor'
   ])
   .config(function ($routeProvider) {
     $routeProvider
@@ -32,3 +33,26 @@ angular
         redirectTo: '/'
       });
   });
+
+// TODO: maybe we should move out this functions
+function getLocalToken() {
+   return 'Bearer ' + localStorage["authToken"];
+}
+
+function setLocalToken(value) {
+    localStorage["authToken"] = value;
+}
+
+function getHttpConfig() {
+    return {
+        headers: { //Authorization: Bearer
+            'Authorization': getLocalToken()
+        }
+    };
+}
+
+function getAuthenticateHttpConfig() {
+    return {
+        ignoreAuthModule: true
+    };
+}
