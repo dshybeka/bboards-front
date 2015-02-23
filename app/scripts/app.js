@@ -23,16 +23,34 @@ angular
     $routeProvider
       .when('/', {
         templateUrl: 'views/main.html',
-        controller: 'MainCtrl'
+        controller: 'MainCtrl',
+        access: {allowAnonymous: true}
       })
       .when('/boards/:id', {
         templateUrl: 'views/board-details.html',
-        controller: 'BoardDetailsCtrl'
+        controller: 'BoardDetailsCtrl',
+        access: {allowAnonymous: false}
+      })
+      .when('/registration', {
+        templateUrl: 'views/registration.html',
+        controller: 'RegistrationCtrl',
+        access: {allowAnonymous: true}
+      })
+      .when('/login', {
+        templateUrl: 'views/login.html',
+        controller: 'LoginCtrl',
+        access: {allowAnonymous: true}
       })
       .otherwise({
         redirectTo: '/'
       });
   });
+
+        
+            
+                
+            
+        
 
 // TODO: maybe we should move out this functions
 function getLocalToken() {
@@ -42,6 +60,10 @@ function getLocalToken() {
 function setLocalToken(value) {
     localStorage["authToken"] = value;
 }
+
+function isAuth() {
+  return localStorage["authToken"] != undefined;
+};
 
 function getHttpConfig() {
     return {

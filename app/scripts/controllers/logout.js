@@ -8,7 +8,7 @@
  * Controller of the bfrontApp
  */
 angular.module('bfrontApp')
-  .controller('LogoutCtrl', function ($rootScope, $scope, appConf, $http, authService) {
+  .controller('LogoutCtrl', function ($rootScope, $scope, appConf, $http, authService, $location) {
 
       var self = this;
       self.appConf =appConf;
@@ -16,7 +16,6 @@ angular.module('bfrontApp')
       console.log('logoutController called');
 
       $scope.logOut = function() {
-          console.log('logOut called');
 
           $http.post(self.appConf.serviceBaseUrl + "/rest/logout", {}, getHttpConfig()).
               success(function() {

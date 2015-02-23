@@ -8,7 +8,15 @@
  * Controller of the bfrontApp
  */
 angular.module('bfrontApp')
-  .controller('MainCtrl', function ($scope, appConf, boardService) {
+  .controller('MainCtrl', function ($scope, appConf, boardService, $rootScope, $location) {
+
+  $rootScope.$on('$routeChangeStart', function(event, next, current) {
+
+    console.log("chananasdasdasdallowAnonymous  " + next.access.allowAnonymous );
+    if (next.access != undefined && !next.access.allowAnonymous && localStorage["authToken"] === undefined) {
+        $location.path("/login");
+    }
+  });
 
     var self = this;
     self.appConf = appConf;
@@ -23,31 +31,36 @@ angular.module('bfrontApp')
 
       angular.forEach($scope.boards, function(board) {
 
-        var mapForNewMarker = board.mapPosition.zoom <= self.map.getZoom() ? self.map : null;
-          var newMarker = new google.maps.Marker({
-            position: new google.maps.LatLng(board.mapPosition.lat, board.mapPosition.lng),
-            map: mapForNewMarker
-          });
+        var isMapPostitionExists = board.mapPosition !== null;
+        if (isMapPostitionExists) {
+          var mapForNewMarker = isMapPostitionExists && board.mapPosition.zoom <= self.map.getZoom() ? self.map : null;
+            var newMarker = new google.maps.Marker({
+              position: new google.maps.LatLng(board.mapPosition.lat, board.mapPosition.lng),
+              map: mapForNewMarker
+            });
 
-          google.maps.event.addListener(newMarker, 'click', function() {
+            google.maps.event.addListener(newMarker, 'click', function() {
 
-              var infowindow = new google.maps.InfoWindow({
-                  content: "<div>" + getBoardImage(board.dayPhoto) + getBoardImage(board.nightPhoto) +
-                  "<div>Описание: " + board.additionalDescription + "</div><div>Цена: " + board.price +
-                  "</div><div><a href='#/boards/" + board.id + "'>Подробнее</a></div></div>"
-              });
-              infowindow.open(self.map, newMarker)
-          });
+                var infowindow = new google.maps.InfoWindow({
+                    content: "<div>" + getBoardImage(board.dayPhoto) + getBoardImage(board.nightPhoto) +
+                    "<div>Описание: " + board.additionalDescription + "</div><div>Цена: " + board.price +
+                    "</div><div><a href='#/boards/" + board.id + "'>Подробнее</a></div></div>"
+                });
+                infowindow.open(self.map, newMarker)
+            });
 
-          google.maps.event.addListener(self.map, 'zoom_changed', function() {
-            if (board.mapPosition.zoom <= self.map.getZoom()) {
-                newMarker.setMap(self.map);
-            } else {
-                newMarker.setMap(null);
-            }
-          });
+            google.maps.event.addListener(self.map, 'zoom_changed', function() {
+              if (board.mapPosition !== undefined && board.mapPosition !== null) {
+                if (board.mapPosition.zoom <= self.map.getZoom()) {
+                    newMarker.setMap(self.map);
+                } else {
+                    newMarker.setMap(null);
+                }
+              }
+            });
+        }
       });
-    })
+    });
 
     var options = {
       center: new google.maps.LatLng(53.9, 27.5666667),

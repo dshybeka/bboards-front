@@ -8,7 +8,7 @@
  * Controller of the bfrontApp
  */
 angular.module('bfrontApp')
-  .controller('LoginCtrl', function ($rootScope, $scope, appConf, $http, authService) {
+  .controller('LoginCtrl', function ($rootScope, $scope, appConf, $http, authService, $location) {
     
     var self = this;
     self.appConf =appConf;
@@ -17,10 +17,11 @@ angular.module('bfrontApp')
     $scope.authData = {};
     $scope.authData.username = "";
     $scope.authData.password = "";
+    $scope.errorMessage = "";
+
+    console.log("Login controller is called2");
 
     $scope.logIn = function() {
-
-      console.log("Login controller is called");
 
       $http.post(
       
@@ -33,17 +34,44 @@ angular.module('bfrontApp')
   
           localStorage["authToken"] = data.access_token;
           authService.loginConfirmed({}, function(config) {
-              if(!config.headers["Authorization"]) {
-                  console.log('Authorization not on original request; adding it');
+
+              if(!config.headers["Authorization"] || config.headers["Authorization"].indexOf('undefined') !== -1) {
                   config.headers["Authorization"] = getLocalToken();
               }
               return config;
           });
+          $location.path("/");
       }).
-        error(function(data) {
-            console.log('login error: ' + data);
-            $rootScope.$broadcast('event:auth-loginFailed', data);
-        });
-    }
+      error(function(data) {
+          console.log('login error: ' + data);
+          $rootScope.$broadcast('event:auth-loginFailed', data);
+          $scope.errorMessage = "Неверное имя пользователя или пароль";
+      });
+    };
+
+    $scope.showLogin = function() {
+      $rootScope.$broadcast('event:auth-loginRequired');
+    };
+
+    $scope.logOut = function() {
+
+        $http.post(self.appConf.serviceBaseUrl + "/rest/logout", {}, getHttpConfig()).
+            success(function() {
+                console.log('logout success');
+                localStorage.clear();
+                $location.path("/")
+            }).
+            error(function(data) {
+                console.log('logout error: ' + data);
+            });
+    };
+
+    $scope.isAuth = function() {
+      return localStorage["authToken"] != undefined;
+    };
+
+    $scope.isNotAuth = function() {
+      return !$scope.isAuth();
+    };
 
   });
