@@ -26,12 +26,13 @@ angular.module('bfrontApp')
             scope.$on('event:auth-loginRequired', function() {
                 console.log('showing login form');
                 // main.hide();
-                username.val('');
-                password.val('');
-                login.show();
-                overlay.show();
+                // username.val('');
+                // password.val('');
+                // login.show();
+                // overlay.show();
 
-                mainContainer.hide();
+                // mainContainer.hide();
+                $location.path("/login");
             });
             scope.$on('event:auth-loginFailed', function() {
                 console.log('showing login error message');

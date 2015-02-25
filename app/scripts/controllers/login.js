@@ -11,7 +11,7 @@ angular.module('bfrontApp')
   .controller('LoginCtrl', function ($rootScope, $scope, appConf, $http, authService, $location) {
     
     var self = this;
-    self.appConf =appConf;
+    self.appConf = appConf;
 
     // $scope.loginForm.$setPristine();
     $scope.authData = {};
@@ -40,7 +40,11 @@ angular.module('bfrontApp')
               }
               return config;
           });
-          $location.path("/");
+
+          var nextPage = localStorage["urlToShowAfterLogin"] !== undefined ? localStorage["urlToShowAfterLogin"] : "/";
+          localStorage["urlToShowAfterLogin"] = undefined;
+          $location.path(nextPage);
+
       }).
       error(function(data) {
           console.log('login error: ' + data);

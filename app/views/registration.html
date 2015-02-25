@@ -15,25 +15,31 @@
                     <div class="form-group">
                         <label for="inputEmail" class="col-lg-2 control-label">ФИО</label>
                         <div class="col-lg-10">
-                            <input type="email" class="form-control" id="inputName" placeholder="Как к вам обращаться?">
+                            <input ng-model="regData.fio" type="text" class="form-control" id="inputName" placeholder="Как к вам обращаться?">
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="inputEmail" class="col-lg-2 control-label">e-mail</label>
                         <div class="col-lg-10">
-                            <input type="email" type="email" class="form-control" id="inputEmail" placeholder="e-mail">
+                            <input ng-model="regData.email" type="email" type="email" class="form-control" id="inputEmail" placeholder="e-mail">
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="inputEmail" class="col-lg-2 control-label">Пароль</label>
                         <div class="col-lg-10">
-                            <input type="password" class="form-control" id="inputPassword" placeholder="Пароль">
+                            <input ng-model="regData.password" type="password" class="form-control" id="inputPassword" placeholder="Пароль">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputEmail" class="col-lg-2 control-label">Повторите пароль</label>
+                        <div class="col-lg-10">
+                            <input ng-model="regData.passwordConfirmation" type="password" class="form-control" id="inputPasswordConfirm" placeholder="Подтвердите пароль">
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="inputEmail" class="col-lg-2 control-label">Телефон</label>
                         <div class="col-lg-10">
-                            <input type="text" class="form-control" id="inputPhone" placeholder="Телефон">
+                            <input ng-model="regData.phone" type="text" class="form-control" id="inputPhone" placeholder="Телефон">
                         </div>
                     </div>
                     <div class="form-group">
