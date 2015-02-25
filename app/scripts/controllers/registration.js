@@ -16,17 +16,22 @@ angular.module('bfrontApp')
     $scope.successMessage = "";
 
     $scope.register = function() {
-      userService.registration($scope.regData, function(data) {
-        if (data.success === undefined || data.success === false) {
-          $scope.errorMessage = "Ошибка во время регистрации";
-        } else {
-          if (data.model !== null) {
-            $location.path("/login");
+      if($scope.regData.password !== $scope.regData.passwordConfirmation) {
+        $scope.errorMessage = "Пароль и его подтверждение не совпадают";
+      } else {
+        
+        userService.registration($scope.regData, function(data) {
+          if (data.success === undefined || data.success === false) {
+            $scope.errorMessage = "Ошибка во время регистрации";
+          } else {
+            if (data.model !== null) {
+              $location.path("/login");
+            }
           }
-        }
-        console.log("callback is called");
-      });
-      $scope.clean();
+          console.log("callback is called");
+        });
+        $scope.clean();
+      }
     };
 
     $scope.cancel = function() {
