@@ -18,8 +18,7 @@ angular.module('bfrontApp')
     $scope.uiConfig = {
       calendar:{
         height: 450,
-        editable: true,
-        editable: true,
+        editable: false,
         header:{
           right: 'today prev,next'
         },

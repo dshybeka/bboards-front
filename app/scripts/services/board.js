@@ -1,3 +1,4 @@
+'use strict';
 angular.module('bfrontApp').service('boardService', function($http, appConf){
 
 
@@ -5,7 +6,7 @@ angular.module('bfrontApp').service('boardService', function($http, appConf){
     var self = this;
 
     console.log("retrieve all boards ");
-      
+
     $http.get(appConf.serviceBaseUrl + appConf.restUrls.boards)
         .success(function(data) {
 
@@ -28,7 +29,7 @@ angular.module('bfrontApp').service('boardService', function($http, appConf){
     var self = this;
 
     console.log("retireve board by id");
-      
+
     $http.get(appConf.serviceBaseUrl + appConf.restUrls.boards + '/' + id, getHttpConfig())
         .success  (function(data) {
 
@@ -46,5 +47,5 @@ angular.module('bfrontApp').service('boardService', function($http, appConf){
             console.log("fail while retrieving board");
         });
   };
-  
+
 });
