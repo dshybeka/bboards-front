@@ -17,13 +17,20 @@ angular
     'ngRoute',
     'ngSanitize',
     'ngTouch',
-    'http-auth-interceptor'
+    'http-auth-interceptor',
+    'uiGmapgoogle-maps',
+    'ui.calendar'
   ])
   .config(function ($routeProvider) {
     $routeProvider
       .when('/', {
         templateUrl: 'views/main.html',
         controller: 'MainCtrl',
+        access: {allowAnonymous: true}
+      })
+      .when('/redesign', {
+        templateUrl: 'views/new-main.html',
+        controller: 'NewMainCtrl',
         access: {allowAnonymous: true}
       })
       .when('/boards/:id', {
@@ -46,11 +53,11 @@ angular
       });
   });
 
-        
-            
-                
-            
-        
+
+
+
+
+
 
 // TODO: maybe we should move out this functions
 function getLocalToken() {

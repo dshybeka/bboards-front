@@ -12,6 +12,7 @@
     <link rel="stylesheet" type="text/css" href="bower_components/bootstrap-material-design/dist/css/material.css">
     <link rel="stylesheet" type="text/css" href="bower_components/bootstrap-material-design/dist/css/ripples.min.css">
     <link rel="stylesheet" type="text/css" href="bower_components/bootstrap-material-design/dist/css/material-wfont.min.css">
+    <link rel="stylesheet" type="text/css" href="bower_components/fullcalendar/fullcalendar.css"/>
 
     <!-- endbower -->
     <!-- endbuild -->
@@ -29,7 +30,7 @@
             <a class="navbar-brand" href="/#/">Маркетинг</a>
         </div>
         <ul class="nav navbar-nav navbar-right" ng-controller="LoginCtrl">
-        
+
             <li ng-show="isNotAuth()" ><a  href="/#/login">Войти<div class="ripple-wrapper"></div></a></li>
             <li ng-show="isAuth()" ><a ng-click="logOut()" href="/#/">Выйти<div class="ripple-wrapper"></div></a></li>
             <li style="padding-right: 20px;"><a href="/#/registration">Регистрация<div class="ripple-wrapper"></div></a></li>
@@ -40,7 +41,7 @@
     <div class="container">
 
         <div id="main-container-js">
-            <div  ng-view=""></div>  
+            <div  ng-view=""></div>
         </div>
 
     </div>
@@ -64,6 +65,7 @@
     <![endif]-->
     <!-- endbuild -->
     <script src="http://maps.googleapis.com/maps/api/js?v=3"></script>
+    <!--<script src='//maps.googleapis.com/maps/api/js?sensor=false'></script>-->
     <!-- build:js(.) scripts/vendor.js -->
     <!-- bower:js -->
     <script src="bower_components/jquery/dist/jquery.js"></script>
@@ -79,12 +81,19 @@
     <script src="bower_components/angular-http-auth/src/http-auth-interceptor.js"></script>
     <script src="bower_components/bootstrap-material-design/dist/js/ripples.min.js"></script>
     <script src="bower_components/bootstrap-material-design/dist/js/material.min.js"></script>
+
+    <script src="bower_components/angular-google-maps/dist/angular-google-maps.js"></script>
+    <script src="bower_components/lodash/dist/lodash.js"></script>
+    <script type="text/javascript" src="bower_components/angular-ui-calendar/src/calendar.js"></script>
+    <script type="text/javascript" src="bower_components/fullcalendar/fullcalendar.js"></script>
+    <script type="text/javascript" src="bower_components/fullcalendar/gcal.js"></script>
     <!-- endbower -->
     <!-- endbuild -->
 
         <!-- build:js({.tmp,app}) scripts/scripts.js -->
         <script src="scripts/app.js"></script>
         <script src="scripts/controllers/main.js"></script>
+        <script src="scripts/controllers/new-main.js"></script>
         <script src="scripts/controllers/board-details.js"></script>
         <script src="scripts/services/board.js"></script>
         <script src="scripts/directives/backimg.js"></script>

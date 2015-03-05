@@ -12,7 +12,7 @@ angular.module('bfrontApp')
 
   $rootScope.$on('$routeChangeStart', function(event, next, current) {
 
-    
+
     // var nextUrl
     if (next.access != undefined && !next.access.allowAnonymous && localStorage["authToken"] === undefined) {
         console.log("originalPath2 " + $location.url());
