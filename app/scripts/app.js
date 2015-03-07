@@ -48,6 +48,11 @@ angular
         controller: 'LoginCtrl',
         access: {allowAnonymous: true}
       })
+      .when('/userhome', {
+        templateUrl: 'views/userhome.html',
+        controller: 'UserhomeCtrl',
+        access: {allowAnonymous: false}
+      })
       .otherwise({
         redirectTo: '/'
       });
