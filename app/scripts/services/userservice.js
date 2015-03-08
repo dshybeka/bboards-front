@@ -37,4 +37,29 @@ angular.module('bfrontApp')
 
     };
 
+    this.getCurrentUser = function(username, callback) {
+
+      console.log("get usre for username " + username);
+
+      var self = this;
+        
+      $http.get(appConf.serviceBaseUrl + appConf.restUrls.user + "/" + username)
+        .success(function(data) {
+
+            if (data.success === true) {
+
+                var user = data.model;
+                console.log("user found");
+                self.user = user;
+            } else {
+                console.log("error while retrieving user");
+            }
+
+            callback(self.user);
+        }).error(function() {
+            console.log("fail while retrieving user ");
+        });
+
+    };
+
   });

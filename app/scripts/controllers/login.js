@@ -30,8 +30,9 @@ angular.module('bfrontApp')
 
         .success(function(data) {
       
-          console.log('authentication token: ' + data.access_token);
-  
+          console.log('authentication username: ' + $scope.authData.username);
+
+          localStorage["username"] = $scope.authData.username;
           localStorage["authToken"] = data.access_token;
           authService.loginConfirmed({}, function(config) {
 
@@ -76,6 +77,10 @@ angular.module('bfrontApp')
 
     $scope.isNotAuth = function() {
       return !$scope.isAuth();
+    };
+
+    $scope.getUsername = function() {
+      return localStorage["username"];
     };
 
   });
