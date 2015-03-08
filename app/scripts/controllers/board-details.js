@@ -5,18 +5,22 @@ angular.module('bfrontApp')
     $scope.data = {
       eventSources : []
     };
+    $scope.eventSources = [$scope.data.eventSources];
 
     var boardId = $routeParams.id;
 
     console.log("boardId " + boardId);
 
     boardService.getBoardById(boardId, function(board) {
-
       $scope.data.board = board;
+      createCalendar();
+      enrichEventsFromTimetables();
     });
 
-    $scope.uiConfig = {
-      calendar:{
+
+    var createCalendar = function() {
+
+      $scope.calendar = {
         height: 450,
         editable: false,
         header:{
@@ -29,23 +33,24 @@ angular.module('bfrontApp')
         dayNamesShort: ["Пн", "Вт", "Ср", "Чт", "Пт", "Сб", "Вс"],
         monthNames: ["Январь", "Февраль","Март","Апрель","Май","Июнь","Июль","Август","Сентябрь","Октябрь","Ноябрь","Декабрь"],
         monthNamesShort: ["Янв", "Фев","Март","Апр","Май","Июнь","Июль","Авг","Сент","Окт","Нояб","Дек"]
-      }
-    };
-
-    angular.forEach($scope.data.board.timetables, function(timetable) {
-
-      var event = {
-        title: 'Арендован',
-        start: timetable.startDate,
-        end: timetable.endDate,
-        overlap: false,
-        color: 'red',
-        editable: false
       };
+    }
 
-      $scope.data.eventSources.push(event);
-    });
+    var enrichEventsFromTimetables = function() {
 
-    $scope.eventSources = [$scope.data.eventSources];
+      angular.forEach($scope.data.board.timetables, function(timetable) {
+
+        var event = {
+          title: 'Арендовано',
+          start: timetable.startDate,
+          end: timetable.endDate,
+          overlap: false,
+          color: 'red',
+          editable: false
+        };
+        console.info(event);
+        $scope.data.eventSources.push(event);
+      });
+    }
 
   });
