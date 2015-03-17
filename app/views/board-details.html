@@ -1,4 +1,5 @@
-<div class="well bs-component" style="display: inline-block;" >
+<div class="col-md-6" >
+  <div class="well bs-component" style="display: inline-block; ">
     <h3>Информация о борде:</h3>
 
     <div class=" col-lg-12">
@@ -133,5 +134,49 @@
       <label class="col-lg-6 control-label">Наличие узкой специализации площадки</label>
       <div class="col-lg-6" >{{data.board.narrowArea}}</div>
     </div>
-
+  </div>
 </div>
+
+<div class="col-md-6">
+  <div class="well bs-component">
+
+    <h3>Заказ борда</h3>
+
+    <div class="alert alert-danger" role="alert" ng-show="boardOrderError != null">
+      <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+      <span class="sr-only">Error:</span>
+      {{boardOrderError}}
+    </div>
+
+    <div class="row">
+
+      <div class="col-md-6">
+        <label>С</label>
+        <p class="input-group">
+          <input type="text" class="form-control" datepicker-popup="{{format}}" ng-model="startDate" is-open="opened"
+                 min-date="minDate" max-date="maxDate" datepicker-options="dateOptions"
+                 date-disabled="disabled(date, mode)" ng-required="true" show-button-bar="false" />
+              <span class="input-group-btn">
+                <button type="button" class="btn btn-default" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+              </span>
+        </p>
+      </div>
+
+      <div class="col-md-6">
+        <label>По</label>
+        <p class="input-group">
+          <input type="text" class="form-control" datepicker-popup="{{format}}" ng-model="endDate" is-open="openedSecond"
+                 min-date="minDate" max-date="maxDate" datepicker-options="dateOptions"
+                 date-disabled="disabled(date, mode)" ng-required="true" show-button-bar="false" />
+              <span class="input-group-btn">
+                <button type="button" class="btn btn-default" ng-click="openEnd($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+              </span>
+        </p>
+      </div>
+      </div>
+
+      <input class="btn btn-primary" type="submit" ng-click="orderBoard()" value="Заказать" />
+
+  </div>
+</div>
+

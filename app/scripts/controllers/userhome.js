@@ -9,7 +9,7 @@
  */
 angular.module('bfrontApp')
   .controller('UserhomeCtrl', function ($scope, userService) {
-    
+
     $scope.data = {user: {}};
 
     var userName = localStorage["username"];
