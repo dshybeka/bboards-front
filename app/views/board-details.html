@@ -142,10 +142,16 @@
 
     <h3>Заказ борда</h3>
 
-    <div class="alert alert-danger" role="alert" ng-show="boardOrderError != null">
+    <div class="alert alert-danger" role="alert" ng-show="errorMessage != null">
       <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
       <span class="sr-only">Error:</span>
-      {{boardOrderError}}
+      {{errorMessage}}
+    </div>
+
+    <div class="alert {{messageType}}" ng-class="messageType" role="alert" ng-show="message != null">
+      <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+      <span class="sr-only">Error:</span>
+      {{message}}
     </div>
 
     <div class="row">

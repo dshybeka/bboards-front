@@ -14,7 +14,8 @@ angular.module('bfrontApp')
     $scope.opened = false;
     $scope.openedSecond = false;
 
-    $scope.boardOrderError;
+    $scope.message;
+    $scope.messageType;
 
     var boardId = $routeParams.id;
 
@@ -93,20 +94,35 @@ angular.module('bfrontApp')
 
 
     $scope.orderBoard = function() {
-      alert("Order board " + boardId + " from " + $scope.startDate + " to " + $scope.endDate + " by " + localStorage["username"]);
 
-      $http.post( appConf.serviceBaseUrl + "/rest/order/add")
+      $http.post(appConf.serviceBaseUrl + "/rest/order/save",
+        {
+          startDate:  $scope.startDate.toLocaleDateString(),
+          endDate: $scope.endDate.toLocaleDateString(),
+          boardId: $routeParams.id,
+          customer: localStorage["username"],
+          orderType: "ON_APPROVE"
+        },
+        getAuthenticateHttpConfig())
         .success(function(data) {
 
           console.log('Order created');
 
+          $scope.data.data = data;
+
+          $scope.message = 'Board saved';
+          $scope.messageType = "alert-success";
+          $timeout(function(){
+            $scope.message = null
+          }, 5000);
 
         }).
         error(function(data) {
           console.log('Error while order creating');
-          $scope.boardOrderError = 'Error while order creating. ' + data;
+          $scope.message = 'Error while order creating. ' + data;
+          $scope.messageType = "alert-danger"
           $timeout(function(){
-            $scope.boardOrderError = null
+            $scope.message = null
           }, 5000);
         });
     }
