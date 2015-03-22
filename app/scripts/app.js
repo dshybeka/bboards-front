@@ -18,6 +18,7 @@ angular
     'ngSanitize',
     'ngTouch',
     'http-auth-interceptor',
+    'ui.bootstrap',
     'uiGmapgoogle-maps',
     'ui.calendar',
     'ngStorage'
