@@ -73,12 +73,11 @@ angular.module('bfrontApp')
 
     this.getCurrentUser = function(username, callback) {
 
-      console.log("get usre for username " + username);
 
       var self = this;
       
       var curUser = $localStorage.curUser;
-      if (curUser.username === undefined ) {
+      if (curUser === undefined || curUser.username === undefined ) {
         $http.get(appConf.serviceBaseUrl + appConf.restUrls.user + "/" + username, getHttpConfig())
           .success(function(data) {
 
@@ -87,6 +86,7 @@ angular.module('bfrontApp')
                   var user = data.model;
                   self.user = user;
                   $localStorage.curUser = user;
+                  console.log("user is retrieved success");
               } else {
                   console.log("error while retrieving user");
               }
@@ -96,6 +96,7 @@ angular.module('bfrontApp')
               console.log("fail while retrieving user ");
           });
       } else {
+        console.log("use is retrieved from cache " + curUser.username);
         callback(curUser);
       }
 

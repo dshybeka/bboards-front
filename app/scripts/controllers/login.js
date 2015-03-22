@@ -8,7 +8,7 @@
  * Controller of the bfrontApp
  */
 angular.module('bfrontApp')
-  .controller('LoginCtrl', function ($rootScope, $scope, appConf, $http, authService, $location) {
+  .controller('LoginCtrl', function ($rootScope, $scope, appConf, $http, authService, $location, $localStorage) {
     
     var self = this;
     self.appConf = appConf;
@@ -64,6 +64,8 @@ angular.module('bfrontApp')
         $http.post(self.appConf.serviceBaseUrl + "/rest/logout", {}, getHttpConfig()).
             success(function() {
                 console.log('logout success');
+                $localStorage.curUser = undefined;
+                console.log("cur user now " + $localStorage.curUser);
                 localStorage.clear();
                 $location.path("/")
             }).
