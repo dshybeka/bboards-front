@@ -16,6 +16,7 @@ angular.module('bfrontApp')
     restUrls: {
       boards: "/rest/boards",
       registration: "/rest/user/register",
+      fullregister: "/rest/user/full-register",
       user: "/rest/user"
     }
 

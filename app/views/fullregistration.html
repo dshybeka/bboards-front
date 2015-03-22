@@ -1,0 +1,117 @@
+<div>
+
+    <!-- String legalName
+    String legalAddress
+    String postalAddress
+    String currentAccount // текущий счет
+    String bank
+    String bankNumber
+    String unp
+    String chefFio
+    String under // на основании
+    String contactPerson
+    String contactPersonPhone
+    String contactPersonEmail -->
+
+    <div class="row" >
+
+        <div ng-show="errorMessage" id="login-error-js" class="alert alert-danger" role="alert">
+          <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+          {{errorMessage}}
+        </div>
+
+        <div class="col-md-12">
+          <div class="well bs-component">
+            <form class="form-horizontal">
+                <fieldset>
+                    <legend>Полная регистрация</legend>
+                    <div class="form-group">
+                        <label for="legalName" class="col-lg-2 control-label">Юридическое название</label>
+                        <div class="col-lg-10">
+                            <input ng-model="regData.legalName" type="text" class="form-control" id="legalName" placeholder="Юридическое название" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="legalAddress" class="col-lg-2 control-label">Юридический адрес</label>
+                        <div class="col-lg-10">
+                            <input ng-model="regData.legalAddress"  class="form-control" id="legalAddress" placeholder="Юридический аддресс" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="postalAddress" class="col-lg-2 control-label">Почтовый адрес(если отличается от юридического)</label>
+                        <div class="col-lg-10">
+                            <input ng-model="regData.postalAddress" class="form-control" id="postalAddress" placeholder="Почтовый адресс" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="currentAccount" class="col-lg-2 control-label">Расчетный счет</label>
+                        <div class="col-lg-10">
+                            <input ng-model="regData.currentAccount"  class="form-control" id="currentAccount" placeholder="Расчетный счет" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="bank" class="col-lg-2 control-label">Банк</label>
+                        <div class="col-lg-10">
+                            <input ng-model="regData.bank"  class="form-control" id="bank" placeholder="Банк" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="bankNumber" class="col-lg-2 control-label">Код банка</label>
+                        <div class="col-lg-10">
+                            <input ng-model="regData.bankNumber"  class="form-control" id="bankNumber" placeholder="Код банка" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="unp" class="col-lg-2 control-label">УНП</label>
+                        <div class="col-lg-10">
+                            <input ng-model="regData.unp"  class="form-control" id="unp" placeholder="УНП" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="chefFio" class="col-lg-2 control-label">Руководитель</label>
+                        <div class="col-lg-10">
+                            <input ng-model="regData.chefFio"  class="form-control" id="chefFio" placeholder="ФИО" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="under" class="col-lg-2 control-label">На основании</label>
+                        <div class="col-lg-10">
+                            <input ng-model="regData.under"  class="form-control" id="under" placeholder="На основании" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="contactPerson" class="col-lg-2 control-label">Контактное лицо</label>
+                        <div class="col-lg-10">
+                            <input ng-model="regData.contactPerson"  class="form-control" id="contactPerson" placeholder="Контактное лицо" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="contactPersonPhone" class="col-lg-2 control-label">Телефон контактного лица</label>
+                        <div class="col-lg-10">
+                            <input ng-model="regData.contactPersonPhone"  class="form-control" id="contactPersonPhone" placeholder="Телефон контактного лица" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="contactPersonEmail" class="col-lg-2 control-label">e-mail контактного лица</label>
+                        <div class="col-lg-10">
+                            <input ng-model="regData.contactPersonEmail"  class="form-control" id="contactPersonEmail" placeholder="e-mail контактного лица" type="email" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-lg-10 col-lg-offset-2">
+                            <button ng-click="fullregister()" type="button" class="btn btn-primary">Сохранить</button>
+                            <button ng-click="cancel()" class="btn btn-default">Закрыть</button>
+                        </div>
+                    </div>
+                </fieldset>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function() {
+        $.material.init();
+    });
+</script>

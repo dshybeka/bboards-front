@@ -34,7 +34,8 @@ angular.module('bfrontApp')
 
           localStorage["username"] = $scope.authData.username;
           localStorage["authToken"] = data.access_token;
-          authService.loginConfirmed({}, function(config) {
+
+          authService.loginConfirmed("success", function(config) {
 
               if(!config.headers["Authorization"] || config.headers["Authorization"].indexOf('undefined') !== -1) {
                   config.headers["Authorization"] = getLocalToken();

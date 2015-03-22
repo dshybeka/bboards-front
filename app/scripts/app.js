@@ -19,7 +19,8 @@ angular
     'ngTouch',
     'http-auth-interceptor',
     'uiGmapgoogle-maps',
-    'ui.calendar'
+    'ui.calendar',
+    'ngStorage'
   ])
   .config(function ($routeProvider) {
     $routeProvider
@@ -51,6 +52,11 @@ angular
       .when('/userhome', {
         templateUrl: 'views/userhome.html',
         controller: 'UserhomeCtrl',
+        access: {allowAnonymous: false}
+      })
+      .when('/fullregistration', {
+        templateUrl: 'views/fullregistration.html',
+        controller: 'FullregistrationCtrl',
         access: {allowAnonymous: false}
       })
       .otherwise({

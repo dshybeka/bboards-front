@@ -14,10 +14,17 @@ angular.module('bfrontApp')
 
     var userName = localStorage["username"];
     userService.getCurrentUser(userName, function(user) {
-      $scope.data.user.email = user.email;
-      $scope.data.user.fio = user.fio;
-      $scope.data.user.phone = user.phone;
-      $scope.data.user.username = user.username;
+
+      var curUser = {};
+
+      curUser.email = user.email;
+      curUser.fio = user.fio;
+      curUser.phone = user.phone;
+      curUser.username = user.username;
+      curUser.userDetails = user.userDetails;
+
+      $scope.data.user = curUser;
     });
+    
 
   });
