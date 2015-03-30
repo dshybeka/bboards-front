@@ -17,12 +17,33 @@ angular.module('bfrontApp')
     $scope.message;
     $scope.messageType;
 
+    $scope.zoom = 11;
+    $scope.map = {
+        center: { latitude: 53.9, longitude: 27.56 },
+        zoom: $scope.zoom
+    };
+    $scope.curMarkers = [];
+
     var boardId = $routeParams.id;
 
     console.log("boardId " + boardId);
 
     boardService.getBoardById(boardId, function(board) {
       $scope.data.board = board;
+      var marker = {
+          id: board.id,
+          coords: {
+              latitude: board.mapPosition.lat,
+              longitude: board.mapPosition.lng
+          },
+          board: board,
+          display: true,
+          windowOptions: {
+              visible: false
+          }
+      };
+      $scope.curMarkers.push(marker);
+
       createCalendar();
       enrichEventsFromTimetables();
     });
@@ -93,7 +114,7 @@ angular.module('bfrontApp')
     };
 
 
-    $scope.orderBoard = function() {
+    $scope.orderBoard = function() { // TODO: move to service
 
       $http.post(appConf.serviceBaseUrl + "/rest/order/save",
         {

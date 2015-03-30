@@ -29,7 +29,11 @@ angular.module('bfrontApp')
     // var nextUrl
     // if (next.access != undefined && !next.access.allowAnonymous && localStorage["authToken"] === undefined) {
         console.log("originalPath2 " + $location.url());
-        localStorage["urlToShowAfterLogin"] = $location.url();
+        if ($location.url() === "/login") {
+          localStorage["urlToShowAfterLogin"] = "/";
+        } else {
+          localStorage["urlToShowAfterLogin"] = $location.url();
+        }
         $location.path("/login");
 
         // $location.path(next.originalPath).search(next.pathParams);;
