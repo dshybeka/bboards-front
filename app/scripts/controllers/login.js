@@ -67,7 +67,9 @@ angular.module('bfrontApp')
                 $localStorage.curUser = undefined;
                 console.log("cur user now " + $localStorage.curUser);
                 localStorage.clear();
-                $location.path("/")
+                $location.path("/");
+
+                authService.loginCancelled();
             }).
             error(function(data) {
                 console.log('logout error: ' + data);

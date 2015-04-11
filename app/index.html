@@ -30,17 +30,18 @@
       <div class="navbar-header">
             <a class="navbar-brand" href="/#/">Маркетинг</a>
         </div>
-        <ul class="nav navbar-nav navbar-right" ng-controller="LoginCtrl">
+        <ul class="nav navbar-nav navbar-right ng-cloak" ng-controller="LoginCtrl">
 
-            <li ng-show="isNotAuth()" ><a  href="/#/login">Войти<div class="ripple-wrapper"></div></a></li>
-            <li ng-show="isNotAuth()" style="padding-right: 20px;"><a href="/#/registration">Регистрация<div class="ripple-wrapper"></div></a></li>
-            <li ng-show="isAuth()" ><a ng-bind="getUsername()" href="/#/userhome"><div class="ripple-wrapper"></div></a></li>
-            <li ng-show="isAuth()"  style="padding-right: 20px;"><a ng-click="logOut()" href="/#/">Выйти<div class="ripple-wrapper"></div></a></li>
+            <li ng-show="isNotAuth()" ><a href="/#/login">Войти</a></li>
+            <li ng-show="isNotAuth()" style="padding-right: 20px;" ><a href="/#/registration">Регистрация</a></li>
+
+            <li ng-show="isAuth()" ><a ng-bind="getUsername()" href="/#/userhome" ></a></li>
+            <li ng-show="isAuth()"  style="padding-right: 20px;"><a  ng-click="logOut()" href="/#/">Выйти</a></li>
         </ul>
       </div>
     </nav>
 
-    <div class="container">
+    <div class="container-fluid">
 
         <div id="main-container-js">
             <div  ng-view=""></div>
@@ -91,6 +92,7 @@
     <script type="text/javascript" src="bower_components/angular-ui-calendar/src/calendar.js"></script>
     <script type="text/javascript" src="bower_components/fullcalendar/fullcalendar.js"></script>
     <script type="text/javascript" src="bower_components/fullcalendar/gcal.js"></script>
+    <script type="text/javascript" src="bower_components/underscore/underscore-min.js"></script>
     <!-- endbower -->
     <!-- endbuild -->
 

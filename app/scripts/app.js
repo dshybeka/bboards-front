@@ -25,16 +25,21 @@ angular
   ])
   .config(function ($routeProvider) {
     $routeProvider
+      // .when('/', {
+      //   templateUrl: 'views/main.html',
+      //   controller: 'MainCtrl',
+      //   access: {allowAnonymous: true}
+      // })
       .when('/', {
-        templateUrl: 'views/main.html',
-        controller: 'MainCtrl',
-        access: {allowAnonymous: true}
-      })
-      .when('/redesign', {
         templateUrl: 'views/new-main.html',
         controller: 'NewMainCtrl',
         access: {allowAnonymous: true}
       })
+      // .when('/redesign', {
+      //   templateUrl: 'views/new-main.html',
+      //   controller: 'NewMainCtrl',
+      //   access: {allowAnonymous: true}
+      // })
       .when('/boards/:id', {
         templateUrl: 'views/board-details.html',
         controller: 'BoardDetailsCtrl',
@@ -65,12 +70,6 @@ angular
       });
   });
 
-
-
-
-
-
-
 // TODO: maybe we should move out this functions
 function getLocalToken() {
    return 'Bearer ' + localStorage["authToken"];
@@ -97,3 +96,6 @@ function getAuthenticateHttpConfig() {
         ignoreAuthModule: true
     };
 }
+
+
+

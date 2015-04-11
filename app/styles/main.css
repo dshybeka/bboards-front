@@ -37,3 +37,5 @@ body {
 .angular-google-map-container {
   height: 800px;
 }
+
+[ng\:cloak], [ng-cloak], .ng-cloak { display: none; }

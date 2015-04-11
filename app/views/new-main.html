@@ -1,16 +1,63 @@
-<div class="well bs-component">
-  {{map.zoom}}
-  <ui-gmap-google-map center="map.center" zoom="map.zoom" events="map.events">
+<div class="row">
+  <div class="col-md-4">
+    <h3>Фильтр</h3>
+    <form>
+      <div class="form-group">
+        <label for="filterSurfaceType">Тип поверхности</label>
+        <select id="filterSurfaceType" class="form-control" ng-model="filterData.filterSurfaceType"
+            ng-options="opt as opt.label for opt in surfaceTypes">
+        </select>
+      </div>
 
-    <ui-gmap-marker ng-repeat="marker in markers | filter: { display : true }"
-                    coords="marker.coords" options="marker.options" events="marker.events" idkey="marker.id">
-      <ui-gmap-window options="marker.windowOptions" closeClick="marker.closeClick()">
-        <div>
-            <div>Описание: {{marker.board.additionalDescription}}</div>
-            <div>Цена: {{marker.board.price}}</div>
-            <div><a href='#/boards/{{marker.board.id}}'>Подробнее</a></div>
-        </div>
-      </ui-gmap-window>
-    </ui-gmap-marker>
-  </ui-gmap-google-map>
+      <div class="form-group">
+        <label for="filterData.filterAddress">Улица</label>
+        <input class="form-control" type="text" id="filterAddress" ng-model="filterData.filterAddress" maxlength="50"/>
+      </div>
+
+      <div class="form-group">
+        <label for="filterDistinct">Район</label>
+         <input class="form-control" type="text" id="filterDistinct" ng-model="filterData.filterDistinct" maxlength="50"/>
+      </div>
+
+      <div class="form-group">
+        <label for="filterPlaces">Рядом с</label>
+        <input class="form-control" type="text" id="filterPlaces" ng-model="filterData.filterPlaces" maxlength="50"/>
+      </div>
+
+      <div class="form-group">
+        <label for="filterPriceFrom">Цена от</label>
+        <input class="form-control" type="number" id="filterPriceFrom" ng-model="filterData.filterPriceFrom" />
+      </div>
+
+      <div class="form-group">
+        <label for="filterPriceTo">Цена до</label>
+        <input class="form-control" type="number" id="filterPriceTo" ng-model="filterData.filterPriceTo" />
+      </div>
+
+      <div class="form-group">
+        <label for="filterSurfaceType">Свободен в период</label>
+        <input type="text" disabled/>
+        </select>
+      </div>
+
+      <button type="button" ng-click="filterBySelectValues()" class="btn btn-default">Найти</button>
+    </form>
+  </div>
+
+  <div class="col-md-8 well bs-component">
+    {{map.zoom}}
+    <ui-gmap-google-map center="map.center" zoom="map.zoom" events="map.events">
+
+      <ui-gmap-marker ng-repeat="marker in markers | filter: { display : true }"
+                      coords="marker.coords" options="marker.options" events="marker.events" idkey="marker.id">
+        <ui-gmap-window options="marker.windowOptions" closeClick="marker.closeClick()">
+          <div>
+              <div>Описание: {{marker.board.additionalDescription}}</div>
+              <div>Цена: {{marker.board.price}}</div>
+              <div><a href='#/boards/{{marker.board.id}}'>Подробнее</a></div>
+          </div>
+        </ui-gmap-window>
+      </ui-gmap-marker>
+    </ui-gmap-google-map>
+  </div>
 </div>
