@@ -8,12 +8,13 @@
  * Service in the bfrontApp.
  */
 angular.module('bfrontApp')
-  .service('userService', function (appConf, $http, $localStorage) {
+  .service('userService', function ($rootScope, appConf, $http, $localStorage) {
     
     this.registration = function(quickRegistrationFields, callback) {
 
       console.log("registration start");
         
+      $rootScope.spinner.active = true;
       $http.post(
       
           appConf.serviceBaseUrl + appConf.restUrls.registration,
@@ -33,14 +34,17 @@ angular.module('bfrontApp')
           console.log('login error: ' + data);
           callback(data);
           // $scope.errorMessage = "Ошибка во время регистрации, пожалуйста повторите позже";
+      }).finally(function() {
+        $rootScope.spinner.active = false;
       });
 
     };
 
-    this.updateFullRegistration = function(fullRegDetails, callback) {
+    this.updateFullRegistration = function($rootScope, fullRegDetails, callback) {
 
       console.log("full registration start");
         
+      $rootScope.spinner.active = true;
       $http.post(
       
           appConf.serviceBaseUrl + appConf.restUrls.fullregister,
@@ -68,6 +72,8 @@ angular.module('bfrontApp')
           console.log('full reg error: ' + data);
           callback(data);
           // $scope.errorMessage = "Ошибка во время регистрации, пожалуйста повторите позже";
+      }).finally(function() {
+        $rootScope.spinner.active = false;
       });
     }
 

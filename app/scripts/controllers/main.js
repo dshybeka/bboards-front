@@ -11,6 +11,9 @@ angular.module('bfrontApp')
   .controller('MainCtrl', function ($scope, appConf, boardService, $rootScope, $location) {
 
 
+
+console.log("spnner: " + $rootScope.spinner.active);
+
     var self = this;
     self.appConf = appConf;
     console.log("self.appConf " + self.appConf.admBaseUrl);

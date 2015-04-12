@@ -1,5 +1,5 @@
 'use strict';
-angular.module('bfrontApp').service('boardService', function($http, appConf){
+angular.module('bfrontApp').service('boardService', function($http, $rootScope, appConf){
 
 
   this.getBoards = function(callback) {
@@ -7,6 +7,7 @@ angular.module('bfrontApp').service('boardService', function($http, appConf){
 
     console.log("retrieve all boards ");
 
+    $rootScope.spinner.active = true;
     $http.get(appConf.serviceBaseUrl + appConf.restUrls.boards)
         .success(function(data) {
 
@@ -22,6 +23,8 @@ angular.module('bfrontApp').service('boardService', function($http, appConf){
             callback(boards);
         }).error(function() {
             console.log("fail while retrieving boards");
+        }).finally(function() {
+            $rootScope.spinner.active = false;
         });
   };
 
@@ -30,6 +33,7 @@ angular.module('bfrontApp').service('boardService', function($http, appConf){
 
     console.log("retireve board by id");
 
+    $rootScope.spinner.active = true;
     $http.get(appConf.serviceBaseUrl + appConf.restUrls.boards + '/' + id, getHttpConfig())
         .success  (function(data) {
 
@@ -45,6 +49,8 @@ angular.module('bfrontApp').service('boardService', function($http, appConf){
             callback(board);
         }).error(function() {
             console.log("fail while retrieving board");
+        }).finally(function() {
+            $rootScope.spinner.active = false;
         });
   };
 

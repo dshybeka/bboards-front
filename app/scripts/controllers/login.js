@@ -23,6 +23,8 @@ angular.module('bfrontApp')
 
     $scope.logIn = function() {
 
+      console.log("$rootScope.spinner2 " + $rootScope.spinner);
+      $rootScope.spinner.active = true;
       $http.post(
       
           self.appConf.serviceBaseUrl + "/rest/login",
@@ -52,6 +54,8 @@ angular.module('bfrontApp')
           console.log('login error: ' + data);
           $rootScope.$broadcast('event:auth-loginFailed', data);
           $scope.errorMessage = "Неверное имя пользователя или пароль";
+      }).finally(function() {
+        $rootScope.spinner.active = false;
       });
     };
 

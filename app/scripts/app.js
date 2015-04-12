@@ -21,7 +21,9 @@ angular
     'ui.bootstrap',
     'uiGmapgoogle-maps',
     'ui.calendar',
-    'ngStorage'
+    'ngStorage',
+    'ngAnimate',
+    'treasure-overlay-spinner'
   ])
   .config(function ($routeProvider) {
     $routeProvider
@@ -69,7 +71,21 @@ angular
         redirectTo: '/'
       });
   });
+angular.module('bfrontApp').run(run);
+run.$inject = ['$rootScope'];
+function run ($rootScope) {
+  $rootScope.spinner = {
+    active: false,
+    on: function () {
+      this.active = true;
+    },
+    off: function () {
+      this.active = false;
+    }
+  };
 
+}
+    
 // TODO: maybe we should move out this functions
 function getLocalToken() {
    return 'Bearer ' + localStorage["authToken"];
