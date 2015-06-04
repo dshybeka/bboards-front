@@ -30,7 +30,7 @@ angular.module('bfrontApp').service('boardService', function($http, appConf){
 
     console.log("retireve board by id");
 
-    $http.get(appConf.serviceBaseUrl + appConf.restUrls.boards + '/' + id, getHttpConfig())
+    $http.get(appConf.serviceBaseUrl + appConf.restUrls.boards + '/' + id, getAuthenticateHttpConfig())
         .success  (function(data) {
 
             if (data.success === true) {

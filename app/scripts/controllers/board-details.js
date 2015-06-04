@@ -1,21 +1,24 @@
 angular.module('bfrontApp')
-  .controller('BoardDetailsCtrl', function ($scope, $routeParams, $http, $timeout, appConf, boardService) {
+  .controller('BoardDetailsCtrl', function ($scope, $routeParams, $http, $timeout, appConf, boardService, orderService) {
 
     var self = this;
+
+    var boardId = $routeParams.id;
+
     $scope.data = {
+      orders : [],
       eventSources : []
     };
     $scope.format = 'dd.MM.yyyy'
     $scope.eventSources = [$scope.data.eventSources];
 
-    $scope.startDate;
-    $scope.endDate;
+    $scope.startDate = null;
+    $scope.endDate = null;
 
     $scope.opened = false;
     $scope.openedSecond = false;
 
-    $scope.message;
-    $scope.messageType;
+    $scope.message = null;
 
     $scope.zoom = 11;
     $scope.map = {
@@ -23,8 +26,6 @@ angular.module('bfrontApp')
         zoom: $scope.zoom
     };
     $scope.curMarkers = [];
-
-    var boardId = $routeParams.id;
 
     console.log("boardId " + boardId);
 
@@ -45,7 +46,6 @@ angular.module('bfrontApp')
       $scope.curMarkers.push(marker);
 
       createCalendar();
-      enrichEventsFromTimetables();
     });
 
 
@@ -63,29 +63,32 @@ angular.module('bfrontApp')
         dayNames: ["Понедельник","Вторник","Суббота","Четверг","Пятница","Суббота","Воскресенье"],
         dayNamesShort: ["Пн", "Вт", "Ср", "Чт", "Пт", "Сб", "Вс"],
         monthNames: ["Январь", "Февраль","Март","Апрель","Май","Июнь","Июль","Август","Сентябрь","Октябрь","Ноябрь","Декабрь"],
-        monthNamesShort: ["Янв", "Фев","Март","Апр","Май","Июнь","Июль","Авг","Сент","Окт","Нояб","Дек"]
+        monthNamesShort: ["Янв", "Фев","Март","Апр","Май","Июнь","Июль","Авг","Сент","Окт","Нбр","Дек"]
       };
     }
 
-    var enrichEventsFromTimetables = function() {
+    var getOrders = function() {
 
-      angular.forEach($scope.data.board.timetables, function(timetable) {
+      orderService.getOrdersByBoardId(boardId, function(orders) {
 
-        var event = {
-          title: 'Арендовано',
-          start: timetable.startDate,
-          end: timetable.endDate,
-          overlap: false,
-          color: 'red',
-          editable: false
-        };
-        console.info(event);
-        $scope.data.eventSources.push(event);
-        console.info("PUSH EVENT");
+        angular.forEach(orders, function(timetable) {
+
+          var event = {
+            title: 'Арендовано',
+            start: timetable.startDate,
+            end: timetable.endDate,
+            overlap: false,
+            color: 'red',
+            editable: false
+          };
+
+          $scope.data.eventSources.push(event);
+        });
+
       });
+    };
 
-    }
-
+    $scope.data.orders = getOrders();
 
     $scope.toggleMin = function() {
       $scope.minDate = $scope.minDate ? null : new Date();
@@ -114,38 +117,31 @@ angular.module('bfrontApp')
     };
 
 
-    $scope.orderBoard = function() { // TODO: move to service
+    $scope.orderBoard = function() {
 
-      $http.post(appConf.serviceBaseUrl + "/rest/order/save",
-        {
-          startDate:  $scope.startDate.toLocaleDateString(),
-          endDate: $scope.endDate.toLocaleDateString(),
-          boardId: $routeParams.id,
-          customer: localStorage["username"],
-          orderType: "ON_APPROVE"
-        },
-        getAuthenticateHttpConfig())
-        .success(function(data) {
+      if ($scope.startDate ==  null) {
+        $scope.message = {
+          text : "Введите начальную дату аренды",
+          type : 'alert-danger'
+          }
+        return;
+      }
+      if ($scope.endDate == null) {
+        $scope.message = {
+          text : "Введите конечную дату аренды",
+          type : 'alert-danger'
+        }
+        return;
+      }
 
-          console.log('Order created');
+      $scope.message = orderService.saveOrder({
+        startDate:  $scope.startDate.toLocaleDateString(),
+        endDate: $scope.endDate.toLocaleDateString(),
+        boardId: $routeParams.id,
+        customer: localStorage["username"],
+        orderType: "ON_APPROVE"
+      });
 
-          $scope.data.data = data;
-
-          $scope.message = 'Board saved';
-          $scope.messageType = "alert-success";
-          $timeout(function(){
-            $scope.message = null
-          }, 5000);
-
-        }).
-        error(function(data) {
-          console.log('Error while order creating');
-          $scope.message = 'Error while order creating. ' + data;
-          $scope.messageType = "alert-danger"
-          $timeout(function(){
-            $scope.message = null
-          }, 5000);
-        });
     }
 
   });

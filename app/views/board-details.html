@@ -148,10 +148,10 @@
       {{errorMessage}}
     </div>
 
-    <div class="alert {{messageType}}" ng-class="messageType" role="alert" ng-show="message != null">
+    <div class="alert {{message.type}}" ng-class="message.type" role="alert" ng-show="message != null">
       <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
       <span class="sr-only">Error:</span>
-      {{message}}
+      {{message.text}}
     </div>
 
     <div class="row">
@@ -181,6 +181,12 @@
       </div>
 
       <div class="col-md-12">
+
+        <input class="btn btn-primary" type="submit" ng-click="orderBoard()" value="Заказать" />
+      </div>
+
+      <div class="col-md-12">
+
         <ui-gmap-google-map center="map.center" zoom="map.zoom" events="map.events">
 
           <ui-gmap-marker ng-repeat="marker in curMarkers"
@@ -197,8 +203,6 @@
       </div>
 
     </div>
-
-    <input class="btn btn-primary" type="submit" ng-click="orderBoard()" value="Заказать" />
 
   </div>
 </div>
