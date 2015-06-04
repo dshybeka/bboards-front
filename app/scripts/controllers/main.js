@@ -10,35 +10,9 @@
 angular.module('bfrontApp')
   .controller('MainCtrl', function ($scope, appConf, boardService, $rootScope, $location) {
 
-  // $rootScope.$on('$routeChangeStart', function(event, next, current) {
 
 
-  //   // var nextUrl
-  //   if (next.access != undefined && !next.access.allowAnonymous && localStorage["authToken"] === undefined) {
-  //       console.log("originalPath2 " + $location.url());
-  //       localStorage["urlToShowAfterLogin"] = $location.url();
-  //       $location.path("/login");
-
-  //       // $location.path(next.originalPath).search(next.pathParams);;
-  //   }
-  // });
-
-  $rootScope.$on('event:auth-loginRequired', function(event, next, current) {
-
-    console.log("catched event!!");
-    // var nextUrl
-    // if (next.access != undefined && !next.access.allowAnonymous && localStorage["authToken"] === undefined) {
-        console.log("originalPath2 " + $location.url());
-        if ($location.url() === "/login") {
-          localStorage["urlToShowAfterLogin"] = "/";
-        } else {
-          localStorage["urlToShowAfterLogin"] = $location.url();
-        }
-        $location.path("/login");
-
-        // $location.path(next.originalPath).search(next.pathParams);;
-    // }
-  });
+console.log("spnner: " + $rootScope.spinner.active);
 
     var self = this;
     self.appConf = appConf;

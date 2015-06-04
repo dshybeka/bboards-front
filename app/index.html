@@ -14,7 +14,7 @@
     <!-- bower:css -->
     <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
     <link rel="stylesheet" type="text/css" href="bower_components/fullcalendar/fullcalendar.css"/>
-
+    <link rel="stylesheet" type="text/css" href="bower_components/angular-treasure-overlay-spinner/dist/treasure-overlay-spinner.min.css"/>
     <!-- endbower -->
     <!-- endbuild -->
     <!-- build:css(.tmp) styles/main.css -->
@@ -26,27 +26,30 @@
       <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
 
-    <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+<treasure-overlay-spinner active='spinner.active'>
+    <nav class="navbar navbar-default" role="navigation">
       <div class="navbar-header">
             <a class="navbar-brand" href="/#/">Маркетинг</a>
         </div>
-        <ul class="nav navbar-nav navbar-right" ng-controller="LoginCtrl">
+        <ul class="nav navbar-nav navbar-right ng-cloak" ng-controller="LoginCtrl">
 
-            <li ng-show="isNotAuth()" ><a  href="/#/login">Войти<div class="ripple-wrapper"></div></a></li>
-            <li ng-show="isNotAuth()" style="padding-right: 20px;"><a href="/#/registration">Регистрация<div class="ripple-wrapper"></div></a></li>
-            <li ng-show="isAuth()" ><a ng-bind="getUsername()" href="/#/userhome"><div class="ripple-wrapper"></div></a></li>
-            <li ng-show="isAuth()"  style="padding-right: 20px;"><a ng-click="logOut()" href="/#/">Выйти<div class="ripple-wrapper"></div></a></li>
+            <li ng-show="isNotAuth()" ><a href="/#/login">Войти</a></li>
+            <li ng-show="isNotAuth()" style="padding-right: 20px;" ><a href="/#/registration">Регистрация</a></li>
+
+            <li ng-show="isAuth()" ><a ng-bind="getUsername()" href="/#/userhome" ></a></li>
+            <li ng-show="isAuth()"  style="padding-right: 20px;"><a  ng-click="logOut()" href="/#/">Выйти</a></li>
         </ul>
       </div>
     </nav>
 
-    <div class="container">
+    <div class="container-fluid">
 
         <div id="main-container-js">
             <div  ng-view=""></div>
         </div>
 
     </div>
+</treasure-overlay-spinner>
 
 
     <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
@@ -81,8 +84,6 @@
     <script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
     <script src="bower_components/angular-touch/angular-touch.js"></script>
     <script src="bower_components/angular-http-auth/src/http-auth-interceptor.js"></script>
-    <script src="bower_components/bootstrap-material-design/dist/js/ripples.min.js"></script>
-    <script src="bower_components/bootstrap-material-design/dist/js/material.min.js"></script>
     <script type="text/javascript" src="bower_components/ngstorage/ngStorage.min.js"></script>
     <script src="bower_components/angular-bootstrap/ui-bootstrap.js"></script>
 
@@ -91,6 +92,8 @@
     <script type="text/javascript" src="bower_components/angular-ui-calendar/src/calendar.js"></script>
     <script type="text/javascript" src="bower_components/fullcalendar/fullcalendar.js"></script>
     <script type="text/javascript" src="bower_components/fullcalendar/gcal.js"></script>
+    <script type="text/javascript" src="bower_components/underscore/underscore-min.js"></script>
+        <script type="text/javascript" src="bower_components/angular-treasure-overlay-spinner/dist/treasure-overlay-spinner.min.js"></script>
     <!-- endbower -->
     <!-- endbuild -->
 
@@ -113,6 +116,7 @@
         <script src="scripts/services/orderService.js"></script>
         <!-- endbuild -->
         <script src="http://code.angularjs.org/1.0.8/i18n/angular-locale_ru-ru.js"></script>
+
 
         <script>
             $(document).ready(function() {

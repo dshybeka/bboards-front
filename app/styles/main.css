@@ -1,7 +1,5 @@
 /* Space out content a bit */
 body {
-  padding-top: 80px;
-  padding-bottom: 20px;
 }
 
 #map-canvas {
@@ -37,3 +35,5 @@ body {
 .angular-google-map-container {
   height: 800px;
 }
+
+[ng\:cloak], [ng-cloak], .ng-cloak { display: none; }

@@ -21,20 +21,27 @@ angular
     'ui.bootstrap',
     'uiGmapgoogle-maps',
     'ui.calendar',
-    'ngStorage'
+    'ngStorage',
+    'ngAnimate',
+    'treasure-overlay-spinner'
   ])
   .config(function ($routeProvider) {
     $routeProvider
+      // .when('/', {
+      //   templateUrl: 'views/main.html',
+      //   controller: 'MainCtrl',
+      //   access: {allowAnonymous: true}
+      // })
       .when('/', {
-        templateUrl: 'views/main.html',
-        controller: 'MainCtrl',
-        access: {allowAnonymous: true}
-      })
-      .when('/redesign', {
         templateUrl: 'views/new-main.html',
         controller: 'NewMainCtrl',
         access: {allowAnonymous: true}
       })
+      // .when('/redesign', {
+      //   templateUrl: 'views/new-main.html',
+      //   controller: 'NewMainCtrl',
+      //   access: {allowAnonymous: true}
+      // })
       .when('/boards/:id', {
         templateUrl: 'views/board-details.html',
         controller: 'BoardDetailsCtrl',
@@ -64,13 +71,21 @@ angular
         redirectTo: '/'
       });
   });
+angular.module('bfrontApp').run(run);
+run.$inject = ['$rootScope'];
+function run ($rootScope) {
+  $rootScope.spinner = {
+    active: false,
+    on: function () {
+      this.active = true;
+    },
+    off: function () {
+      this.active = false;
+    }
+  };
 
-
-
-
-
-
-
+}
+    
 // TODO: maybe we should move out this functions
 function getLocalToken() {
    return 'Bearer ' + localStorage["authToken"];
@@ -97,3 +112,6 @@ function getAuthenticateHttpConfig() {
         ignoreAuthModule: true
     };
 }
+
+
+
