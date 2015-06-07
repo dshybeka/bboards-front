@@ -23,7 +23,8 @@ angular
     'ui.calendar',
     'ngStorage',
     'ngAnimate',
-    'treasure-overlay-spinner'
+    'treasure-overlay-spinner',
+    'leaflet-directive'
   ])
   .config(function ($routeProvider) {
     $routeProvider

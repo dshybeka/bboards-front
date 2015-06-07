@@ -37,3 +37,5 @@ body {
 }
 
 [ng\:cloak], [ng-cloak], .ng-cloak { display: none; }
+
+#map { height: 580px; width: 580px; }

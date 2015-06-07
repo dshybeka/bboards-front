@@ -65,7 +65,7 @@ console.log("spnner: " + $rootScope.spinner.active);
     };
 
     var getBoardImage = function(image) {
-        return image != null ? "<img src='" + adminLink + image.url + "' height='50' width='50' />" : "";
+        return image != null ? "<img src='" + adminLink + image.url + "' height='50' width='50' />" : "<img src='http://dummyimage.com/800x600/292929/e3e3e3&text=Not found' height='50' width='50' />";
     };
 
     self.map = new google.maps.Map(container[0], options);

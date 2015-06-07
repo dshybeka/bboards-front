@@ -45,19 +45,20 @@
   </div>
 
   <div class="col-md-8 well bs-component">
-    {{map.zoom}}
-    <ui-gmap-google-map center="map.center" zoom="map.zoom" events="map.events">
+     <leaflet defaults="defaults" markers="markers" layers="layers"  center="minskCenter" height="480px" width="640px"></leaflet>
 
-      <ui-gmap-marker ng-repeat="marker in markers | filter: { display : true }"
-                      coords="marker.coords" options="marker.options" events="marker.events" idkey="marker.id">
-        <ui-gmap-window options="marker.windowOptions" closeClick="marker.closeClick()">
-          <div>
-              <div>Описание: {{marker.board.additionalDescription}}</div>
-              <div>Цена: {{marker.board.price}}</div>
-              <div><a href='#/boards/{{marker.board.id}}'>Подробнее</a></div>
-          </div>
-        </ui-gmap-window>
-      </ui-gmap-marker>
-    </ui-gmap-google-map>
+    <!-- <ui-gmap-google-map center="map.center" zoom="map.zoom" events="map.events" >
+
+        <ui-gmap-markers doCluster="true" models="markers" coords="'self'" clusterEvents="clusterEvents" options="markersOptions"events="markerEvents">
+            <ui-gmap-windows>
+              <div>
+                  <div ng-non-bindable>Описание: {{board.additionalDescription}}</div>
+                  <div ng-non-bindable>Цена: {{board.price}}</div>
+                  <div ng-non-bindable><a href='#/boards/{{board.id}}'>Подробнее</a></div>
+              </div>
+            </ui-gmap-windows>
+        </ui-gmap-markers>
+
+    </ui-gmap-google-map> -->
   </div>
 </div>

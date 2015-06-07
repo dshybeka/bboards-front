@@ -18,6 +18,12 @@ angular.module('bfrontApp')
       registration: "/rest/user/register",
       fullregister: "/rest/user/full-register",
       user: "/rest/user"
+    },
+
+    minskCenter: {
+        lat: 53.9,
+        lng: 27.56,
+        zoom: 11
     }
 
   });

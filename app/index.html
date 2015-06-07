@@ -15,6 +15,9 @@
     <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
     <link rel="stylesheet" type="text/css" href="bower_components/fullcalendar/fullcalendar.css"/>
     <link rel="stylesheet" type="text/css" href="bower_components/angular-treasure-overlay-spinner/dist/treasure-overlay-spinner.min.css"/>
+    <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.3/leaflet.css" />
+    <link rel="stylesheet" type="text/css" href="bower_components/leaflet.markercluster/dist/MarkerCluster.css"/>
+    <link rel="stylesheet" type="text/css" href="bower_components/leaflet.markercluster/dist/MarkerCluster.Default.css"/>
     <!-- endbower -->
     <!-- endbuild -->
     <!-- build:css(.tmp) styles/main.css -->
@@ -37,6 +40,7 @@
             <li ng-show="isNotAuth()" style="padding-right: 20px;" ><a href="/#/registration">Регистрация</a></li>
 
             <li ng-show="isAuth()" ><a ng-bind="getUsername()" href="/#/userhome" ></a></li>
+            <li ng-show="isAuth()" ><a href="/#/bucket">Board Bucket <span class="badge">3</span></a></li>
             <li ng-show="isAuth()"  style="padding-right: 20px;"><a  ng-click="logOut()" href="/#/">Выйти</a></li>
         </ul>
       </div>
@@ -45,7 +49,12 @@
     <div class="container-fluid">
 
         <div id="main-container-js">
-            <div  ng-view=""></div>
+        <div class="panel panel-default">
+          <div ng-view="" class="panel-body">
+
+          </div>
+        </div>
+            
         </div>
 
     </div>
@@ -70,6 +79,7 @@
     <![endif]-->
     <!-- endbuild -->
     <script src="http://maps.googleapis.com/maps/api/js?v=3"></script>
+    <script src="https://google-maps-utility-library-v3.googlecode.com/svn/trunk/markerclusterer/src/markerclusterer.js"></script>
     <!--<script src='//maps.googleapis.com/maps/api/js?sensor=false'></script>-->
     <!-- build:js(.) scripts/vendor.js -->
     <!-- bower:js -->
@@ -88,12 +98,16 @@
     <script src="bower_components/angular-bootstrap/ui-bootstrap.js"></script>
 
     <script src="bower_components/angular-google-maps/dist/angular-google-maps.js"></script>
-    <script src="bower_components/lodash/dist/lodash.js"></script>
+    <script src="bower_components/lodash/lodash.min.js"></script>
     <script type="text/javascript" src="bower_components/angular-ui-calendar/src/calendar.js"></script>
     <script type="text/javascript" src="bower_components/fullcalendar/fullcalendar.js"></script>
     <script type="text/javascript" src="bower_components/fullcalendar/gcal.js"></script>
     <script type="text/javascript" src="bower_components/underscore/underscore-min.js"></script>
-        <script type="text/javascript" src="bower_components/angular-treasure-overlay-spinner/dist/treasure-overlay-spinner.min.js"></script>
+    <script type="text/javascript" src="bower_components/angular-treasure-overlay-spinner/dist/treasure-overlay-spinner.min.js"></script>
+      <script type="text/javascript" src="bower_components/angular-leaflet-directive/dist/angular-leaflet-directive.min.js"></script>
+          <script src="http://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.3/leaflet.js"></script>
+      <script type="text/javascript" src="bower_components/leaflet.markercluster/dist/leaflet.markercluster.js"></script>
+
     <!-- endbower -->
     <!-- endbuild -->
 
@@ -114,15 +128,9 @@
         <script src="scripts/controllers/userhome.js"></script>
         <script src="scripts/controllers/fullregistration.js"></script>
         <script src="scripts/services/orderService.js"></script>
+        <script src="scripts/services/utilsservice.js"></script>
         <!-- endbuild -->
         <script src="http://code.angularjs.org/1.0.8/i18n/angular-locale_ru-ru.js"></script>
 
-
-        <script>
-            $(document).ready(function() {
-                console.log("material init");
-                $.material.init();
-            });
-        </script>
 </body>
 </html>

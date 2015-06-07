@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('bfrontApp')
-.controller('NewMainCtrl', function($scope, $filter, boardService, $rootScope, $location) {
+.controller('NewMainCtrl', function($scope, $filter, boardService, $rootScope, $location, utilsService, appConf, leafletData) {
 
   $rootScope.$on('$routeChangeStart', function(event, next, current) {
 
@@ -18,10 +18,8 @@ angular.module('bfrontApp')
 
   $rootScope.$on('event:auth-loginRequired', function(event, next, current) {
 
-    console.log("catched event!!");
     // var nextUrl
     // if (next.access != undefined && !next.access.allowAnonymous && localStorage["authToken"] === undefined) {
-        console.log("originalPath2 " + $location.url());
         if ($location.url() === "/login") {
           localStorage["urlToShowAfterLogin"] = "/";
         } else {
@@ -33,25 +31,28 @@ angular.module('bfrontApp')
     // }
   });
 
-    var filterMarkersZoom = function(markers, zoom){
-        angular.forEach(markers, function(marker) {
-            marker.display = marker.board.mapPosition.zoom <= zoom ? true : false;
-        });
-    };
-
-    $scope.zoom = 11;
-    $scope.unfilteredMarkers = [];
+    $scope.minskCenter = appConf.minskCenter;
+    var unfilteredMarkers = [];
     $scope.markers = [];
-    $scope.map = {
-        center: { latitude: 53.9, longitude: 27.56 },
-        zoom: $scope.zoom,
-        events: {
-            zoom_changed: function(map, eventName, originalEventArgs) {
-                $scope.zoom = map.zoom;
-                filterMarkersZoom($scope.markers, map.zoom);
-            }
-        }
-    };
+
+    $scope.layers = {baselayers: {
+                        mapbox_light: {
+                            name: 'Mapbox Light',
+                            url: 'http://api.tiles.mapbox.com/v4/{mapid}/{z}/{x}/{y}.png?access_token={apikey}',
+                            type: 'xyz',
+                            layerOptions: {
+                                apikey: 'pk.eyJ1IjoiYnVmYW51dm9scyIsImEiOiJLSURpX0pnIn0.2_9NrLz1U9bpwMQBhVk97Q',
+                                mapid: 'bufanuvols.lia22g09'
+                            }
+                        }
+                    },
+                    overlays: {
+                        minskBoards: {
+                            name: "Minsk Boards",
+                            type: "markercluster",
+                            visible: true
+                        }
+                    }};
 
     boardService.getBoards(function(boardsFromService) {
 
@@ -59,31 +60,27 @@ angular.module('bfrontApp')
 
             if (board.mapPosition != null && board.mapPosition != undefined) {
                 var visible =  board.mapPosition.zoom <= $scope.zoom ? true : false;
+
                 var marker = {
                     id: board.id,
-                    coords: {
-                        latitude: board.mapPosition.lat,
-                        longitude: board.mapPosition.lng
-                    },
+                    lat: Number(board.mapPosition.lat),
+                    lng: Number(board.mapPosition.lng),
                     board: board,
+                    layer: 'minskBoards',
                     display: visible,
-                    windowOptions: {
-                        visible: false
-                    },
-                    events: {
-                        click: function(marker, eventName, args) {
-                            this.show= true;
-                        }
-                    },
-                    closeClick: function() {
-                        this.windowOptions.visible = false;
-                    }
+                    getMessageScope: function () { return board; },
+                    message: "<div>" +
+                                  "<div >Описание: " + utilsService.getStringOrEmpty(board.additionalDescription) + "</div>" +
+                                  "<div >Цена: " + utilsService.getStringOrEmpty(board.price) + "</div>" +
+                                  "<div ><a href='#/boards/" + board.id + "'>Подробнее</a></div>" +
+                              "</div>",
+                    compileMessage: true
                 };
-                $scope.unfilteredMarkers.push(marker);
+                unfilteredMarkers.push(marker);
             }
             
         });
-        $scope.markers = $scope.unfilteredMarkers;
+        $scope.markers = unfilteredMarkers;
     });
 
     $scope.surfaceTypes = [
@@ -137,15 +134,15 @@ angular.module('bfrontApp')
         checkPlaces : function(places) {
 
             var isPlacesExsits = !_.isEmpty(places);
-            console.log("isPlacesExsits " + isPlacesExsits);
+            // console.log("isPlacesExsits " + isPlacesExsits);
             if (isPlacesExsits) {
-                console.log("isPlacesExsits " + isPlacesExsits + " fpr places");
+                // console.log("isPlacesExsits " + isPlacesExsits + " fpr places");
                 var placesArray = places.split(",");
                 var placesInput = $scope.filterData.filterPlaces.toLowerCase().split(", ");
                 for (var i = 0; i < placesArray.length; ++i) {
-                    console.log("check " + placesArray[i].trim() + " in " + placesInput + " result " + _.contains(placesInput, placesArray[i].trim()));
+                    // console.log("check " + placesArray[i].trim() + " in " + placesInput + " result " + _.contains(placesInput, placesArray[i].trim()));
                     if (_.contains(placesInput, placesArray[i].trim())) {
-                        console.log("return for placesInput " + placesInput);
+                        // console.log("return for placesInput " + placesInput);
                         return true;
                     }
                 }
@@ -154,7 +151,10 @@ angular.module('bfrontApp')
 
         filterPriceFrom : "",
         isPriceFromExists : function() {
-            return $scope.filterData.filterPriceFrom != null && $scope.filterData.filterPriceFrom != undefined;  
+           
+            return $scope.filterData.filterPriceFrom != null 
+            && $scope.filterData.filterPriceFrom != undefined 
+            && (_.isNumber($scope.filterData.filterPriceFrom) || !_.isEmpty($scope.filterData.filterPriceFrom));  
         },
         checkPriceFrom : function(price) {
             var isPriceExists = price != undefined && price != null;
@@ -164,7 +164,9 @@ angular.module('bfrontApp')
 
         filterPriceTo : "",
         isPriceToExists : function() {
-            return $scope.filterData.filterPriceTo != null && $scope.filterData.filterPriceTo != undefined;  
+            return $scope.filterData.filterPriceTo != null 
+            && $scope.filterData.filterPriceTo != undefined 
+            && (_.isNumber($scope.filterData.filterPriceTo) || !_.isEmpty($scope.filterData.filterPriceTo)); 
         },
         checkPriceTo : function(price) {
             var isPriceExists = price != undefined && price != null;
@@ -175,14 +177,21 @@ angular.module('bfrontApp')
             return $scope.filterData.isPriceToExists() || $scope.filterData.isPriceFromExists();
         },
         checkPriceRange : function(price) {
-            var result = true;
-            if ($scope.filterData.isPriceToExists()) {
-                result = result && $scope.filterData.checkPriceTo(price);
+
+            var result = false;
+
+            if ($scope.filterData.isPriceFromExists() && $scope.filterData.isPriceToExists()) {
+                result = $scope.filterData.checkPriceFrom(price) || $scope.filterData.checkPriceTo(price);
+            } else {
+
+                if ($scope.filterData.isPriceFromExists()) {
+                    result = $scope.filterData.checkPriceFrom(price); 
+                }
+
+                if ($scope.filterData.isPriceToExists()) {
+                    result = $scope.filterData.checkPriceTo(price);
+                }
             }
-            if ($scope.filterData.isPriceFromExists()) {
-                result = result && $scope.filterData.checkPriceFrom(price);    
-            }
-            console.log("end: price " + price);
 
             return result;
         },
@@ -200,9 +209,12 @@ angular.module('bfrontApp')
     // TODO: move to filter service
     $scope.filterBySelectValues = function() {
 
-        console.log("$scope.filterData.isExists() " + $scope.filterData.isExists());
+        $scope.markers = [];
         if ($scope.filterData.isExists()) {
-            $scope.markers = _.filter($scope.unfilteredMarkers, function(marker) {
+
+            setTimeout( function() {
+                
+                var filtered = _.filter(unfilteredMarkers, function(marker) {
                 var markerBoard = marker.board;
                 var filterResult = $scope.filterData.checkSurfaceType(markerBoard.surfaceName) ||
                        $scope.filterData.checkAddress(markerBoard.address) ||
@@ -211,9 +223,19 @@ angular.module('bfrontApp')
                        $scope.filterData.checkPriceRange(markerBoard.price);
 
                 return filterResult;
-            });
+            });    
+
+            $scope.markers = filtered;
+            $scope.$apply();
+            }, 10);
+
         } else {
-            $scope.markers = $scope.unfilteredMarkers;
+
+            setTimeout( function() {
+                $scope.markers = unfilteredMarkers;
+                $scope.$apply();
+            }, 10);
+
         }
     }
 
