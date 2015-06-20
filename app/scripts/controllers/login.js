@@ -19,11 +19,9 @@ angular.module('bfrontApp')
     $scope.authData.password = "";
     $scope.errorMessage = "";
 
-    console.log("Login controller is called2");
-
     $scope.logIn = function() {
 
-      console.log("$rootScope.spinner2 " + $rootScope.spinner);
+
       $rootScope.spinner.active = true;
       $http.post(
       
@@ -31,8 +29,6 @@ angular.module('bfrontApp')
           { username: $scope.authData.username, password: $scope.authData.password }, getAuthenticateHttpConfig())
 
         .success(function(data) {
-      
-          console.log('authentication username: ' + $scope.authData.username);
 
           localStorage["username"] = $scope.authData.username;
           localStorage["authToken"] = data.access_token;
@@ -45,8 +41,7 @@ angular.module('bfrontApp')
               return config;
           });
 
-          var nextPage = localStorage["urlToShowAfterLogin"] !== undefined ? localStorage["urlToShowAfterLogin"] : "/";
-          localStorage["urlToShowAfterLogin"] = undefined;
+          var nextPage = localStorage["urlToShowAfterLogin"] === undefined || localStorage["urlToShowAfterLogin"] === "/login" ?  "/" : localStorage["urlToShowAfterLogin"];
           $location.path(nextPage);
 
       }).
@@ -67,9 +62,9 @@ angular.module('bfrontApp')
 
         $http.post(self.appConf.serviceBaseUrl + "/rest/logout", {}, getHttpConfig()).
             success(function() {
-                console.log('logout success');
+
                 $localStorage.curUser = undefined;
-                console.log("cur user now " + $localStorage.curUser);
+
                 localStorage.clear();
                 $location.path("/");
 

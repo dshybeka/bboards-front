@@ -26,23 +26,13 @@ angular
     'treasure-overlay-spinner',
     'leaflet-directive'
   ])
-  .config(function ($routeProvider) {
+  .config(function ($routeProvider,  $httpProvider) {
     $routeProvider
-      // .when('/', {
-      //   templateUrl: 'views/main.html',
-      //   controller: 'MainCtrl',
-      //   access: {allowAnonymous: true}
-      // })
       .when('/', {
         templateUrl: 'views/new-main.html',
         controller: 'NewMainCtrl',
         access: {allowAnonymous: true}
       })
-      // .when('/redesign', {
-      //   templateUrl: 'views/new-main.html',
-      //   controller: 'NewMainCtrl',
-      //   access: {allowAnonymous: true}
-      // })
       .when('/boards/:id', {
         templateUrl: 'views/board-details.html',
         controller: 'BoardDetailsCtrl',
@@ -71,10 +61,84 @@ angular
       .otherwise({
         redirectTo: '/'
       });
+
+      
+      console.log(" $httpProvider. " +  $httpProvider);
+
   });
+
 angular.module('bfrontApp').run(run);
-run.$inject = ['$rootScope'];
-function run ($rootScope) {
+
+angular.module('bfrontApp').factory('authInterceptor', ['$q', '$rootScope', '$location', function($q, $rootScope, $location) {
+
+  $rootScope.$on('$routeChangeStart', function(event, next, current) {
+
+    console.log("Route changed!");
+
+    // if (next.access != undefined && !next.access.allowAnonymous && localStorage["authToken"] === undefined) {
+        console.log("originalPath2 " + $location.url());
+        localStorage["urlToShowAfterLogin"] = $location.url();
+        // $location.path("/login");
+
+        // $location.path(next.originalPath).search(next.pathParams);;
+    // }
+  });
+
+  $rootScope.$on('event:auth-loginRequired', function(event, next, current) {
+
+    console.log("Login required!")
+    $rootScope.spinner.active = false;
+    // var nextUrl
+    // if (next.access != undefined && !next.access.allowAnonymous && localStorage["authToken"] === undefined) {
+        if ($location.url() === "/login") {
+          console.log("On login page ")
+          localStorage["urlToShowAfterLogin"] = "/";
+        }
+        $location.path("/login");
+
+        // $location.path(next.originalPath).search(next.pathParams);;
+    // }
+  }); 
+
+    var authInterceptor = {
+        responseError: function(response) {
+          console.log("response " + response);
+          console.log("response status" + response.status);
+          if(response.status === 401) {
+            $rootScope.$broadcast('event:auth-loginRequired');
+          }
+            return $q.reject(response);
+        }
+    };
+
+    return authInterceptor;
+}]);
+angular.module('bfrontApp').config(['$httpProvider', function($httpProvider) {  
+    $httpProvider.interceptors.push('authInterceptor');
+}]);
+
+run.$inject = ['$rootScope', '$http', 'appConf'];
+
+function run ($rootScope, $http, appConf) {
+
+  // $http.post(
+      
+  //         appConf.serviceBaseUrl + "/rest/validate",
+  //         { }, getAuthenticateHttpConfig())
+
+  //     .success(function(data) {
+
+  //         console.log("Token is validated");
+
+  //     }).
+  //     error(function(data) {
+  //         localStorage["username"] = undefined;
+  //         localStorage["authToken"] =undefined;
+  //         console.log('login error: ' + data);
+  //     }).finally(function() {
+  //       $rootScope.spinner.active = false;
+  //     });
+
   $rootScope.spinner = {
     active: false,
     on: function () {
@@ -86,6 +150,7 @@ function run ($rootScope) {
   };
 
 }
+
     
 // TODO: maybe we should move out this functions
 function getLocalToken() {

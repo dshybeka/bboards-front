@@ -3,34 +3,6 @@
 angular.module('bfrontApp')
 .controller('NewMainCtrl', function($scope, $filter, boardService, $rootScope, $location, utilsService, appConf, leafletData) {
 
-  $rootScope.$on('$routeChangeStart', function(event, next, current) {
-
-// $rootScope.$broadcast('event:auth-loginRequired', {});
-    // var nextUrl
-    if (next.access != undefined && !next.access.allowAnonymous && localStorage["authToken"] === undefined) {
-        console.log("originalPath2 " + $location.url());
-        localStorage["urlToShowAfterLogin"] = $location.url();
-        $location.path("/login");
-
-        // $location.path(next.originalPath).search(next.pathParams);;
-    }
-  });
-
-  $rootScope.$on('event:auth-loginRequired', function(event, next, current) {
-
-    // var nextUrl
-    // if (next.access != undefined && !next.access.allowAnonymous && localStorage["authToken"] === undefined) {
-        if ($location.url() === "/login") {
-          localStorage["urlToShowAfterLogin"] = "/";
-        } else {
-          localStorage["urlToShowAfterLogin"] = $location.url();
-        }
-        $location.path("/login");
-
-        // $location.path(next.originalPath).search(next.pathParams);;
-    // }
-  });
-
     $scope.minskCenter = appConf.minskCenter;
     var unfilteredMarkers = [];
     $scope.markers = [];
